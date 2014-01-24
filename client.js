@@ -16,7 +16,13 @@ var tambo = {
     var client = net.connect({host: host, port: port},
         function() { //'connect' listener
       console.log('client connected');
-      callback();
+    });
+    client.once('data', function(data) {
+        //console.log(data.toString());
+        //client.end();
+        //
+        console.log("bienvenido", data.toString());
+        callback();
     });
     client.on('end', function() {
       console.log('client disconnected');
@@ -24,7 +30,7 @@ var tambo = {
 
     var send_action = function(action, key, value, callback) {
       console.log("mandando mensaje");
-      client.on('data', function(data) {
+      client.once('data', function(data) {
         //console.log(data.toString());
         //client.end();
         //
